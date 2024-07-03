@@ -14,7 +14,7 @@ namespace GildedTros.App
         {
             for (var i = 0; i < Items.Count; i++)
             {
-                if (Items[i].Name != "Good Wine" 
+                if (Items[i].Name != "Good Wine"
                     && Items[i].Name != "Backstage passes for Re:factor"
                     && Items[i].Name != "Backstage passes for HAXX")
                 {
@@ -30,7 +30,7 @@ namespace GildedTros.App
                 {
                     if (Items[i].Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        Items[i].Quality = Items[i].Quality + 1; //Improved quality of backstage passes and good wine.
 
                         if (Items[i].Name == "Backstage passes for Re:factor"
                         || Items[i].Name == "Backstage passes for HAXX")
@@ -76,14 +76,14 @@ namespace GildedTros.App
                         }
                         else
                         {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                            Items[i].Quality = Items[i].Quality - Items[i].Quality; //Resets Quality to 0.
                         }
                     }
                     else
                     {
                         if (Items[i].Quality < 50)
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            Items[i].Quality = Items[i].Quality + 1; //Improved Good Wine quality
                         }
                     }
                 }

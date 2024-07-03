@@ -25,8 +25,6 @@ namespace GildedTros.App
             };
 
             var app = new GildedTros(Items);
-            var appp2 = new String();
-
 
             for (var i = 0; i < 31; i++)
             {
