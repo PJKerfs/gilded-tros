@@ -23,9 +23,9 @@ B-DAWG Keychain, -1, 80
 Backstage passes for Re:factor, 14, 21
 Backstage passes for Re:factor, 9, 50
 Backstage passes for HAXX, 4, 50
-Duplicate Code, 2, 5
-Long Methods, 2, 5
-Ugly Variable Names, 2, 5
+Duplicate Code, 2, 4
+Long Methods, 2, 4
+Ugly Variable Names, 2, 4
 
 -------- day 2 --------
 name, sellIn, quality
@@ -37,9 +37,9 @@ B-DAWG Keychain, -1, 80
 Backstage passes for Re:factor, 13, 22
 Backstage passes for Re:factor, 8, 50
 Backstage passes for HAXX, 3, 50
-Duplicate Code, 1, 4
-Long Methods, 1, 4
-Ugly Variable Names, 1, 4
+Duplicate Code, 1, 2
+Long Methods, 1, 2
+Ugly Variable Names, 1, 2
 
 -------- day 3 --------
 name, sellIn, quality
@@ -51,9 +51,9 @@ B-DAWG Keychain, -1, 80
 Backstage passes for Re:factor, 12, 23
 Backstage passes for Re:factor, 7, 50
 Backstage passes for HAXX, 2, 50
-Duplicate Code, 0, 3
-Long Methods, 0, 3
-Ugly Variable Names, 0, 3
+Duplicate Code, 0, 0
+Long Methods, 0, 0
+Ugly Variable Names, 0, 0
 
 -------- day 4 --------
 name, sellIn, quality
@@ -65,9 +65,9 @@ B-DAWG Keychain, -1, 80
 Backstage passes for Re:factor, 11, 24
 Backstage passes for Re:factor, 6, 50
 Backstage passes for HAXX, 1, 50
-Duplicate Code, -1, 1
-Long Methods, -1, 1
-Ugly Variable Names, -1, 1
+Duplicate Code, -1, 0
+Long Methods, -1, 0
+Ugly Variable Names, -1, 0
 
 -------- day 5 --------
 name, sellIn, quality

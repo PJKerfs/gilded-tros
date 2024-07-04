@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
+﻿using System.Collections.Generic;
 
 namespace GildedTros.App
 {
@@ -36,158 +34,83 @@ namespace GildedTros.App
                 switch (c)
                 {
                     case Categorie.NormalItem:
-                        Items[i] = HandleNormalItem(Items[i]);
+                        HandleNormalItem(Items[i]);
                         break;
                     case Categorie.LegendaryItem:
-                        Items[i] = HandleLegendaryItem(Items[i]);
+                        HandleLegendaryItem(Items[i]);
                         break;
                     case Categorie.BackstagePasses:
-                        Items[i] = HandleBackstagePassItem(Items[i]);
+                        HandleBackstagePassItem(Items[i]);
                         break;
                     case Categorie.Wine:
-                        Items[i] = HandleWineItem(Items[i]);
+                        HandleWineItem(Items[i]);
                         break;
                     case Categorie.SmellyItems:
-                        Items[i] = HandleSmellyItem(Items[i]);
+                        HandleSmellyItem(Items[i]);
                         break;
                 }
-
-
-
-                //     if (Items[i].Name != "Good Wine"
-                //         && Items[i].Name != "Backstage passes for Re:factor"
-                //         && Items[i].Name != "Backstage passes for HAXX")
-                //     {
-                //         if (Items[i].Quality > 0)
-                //         {
-                //             if (Items[i].Name != "B-DAWG Keychain")
-                //             {
-                //                 Items[i].Quality = Items[i].Quality - 1;
-                //             }
-                //         }
-                //     }
-                //     else
-                //     {
-                //         if (Items[i].Quality < 50)
-                //         {
-                //             Items[i].Quality = Items[i].Quality + 1; //Improved quality of backstage passes and good wine.
-
-                //             if (Items[i].Name == "Backstage passes for Re:factor"
-                //             || Items[i].Name == "Backstage passes for HAXX")
-                //             {
-                //                 if (Items[i].SellIn < 11)
-                //                 {
-                //                     if (Items[i].Quality < 50)
-                //                     {
-                //                         Items[i].Quality = Items[i].Quality + 1;
-                //                     }
-                //                 }
-
-                //                 if (Items[i].SellIn < 6)
-                //                 {
-                //                     if (Items[i].Quality < 50)
-                //                     {
-                //                         Items[i].Quality = Items[i].Quality + 1;
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     }
-
-                //     if (Items[i].Name != "B-DAWG Keychain")
-                //     {
-                //         Items[i].SellIn = Items[i].SellIn - 1;
-                //     }
-
-                //     if (Items[i].SellIn < 0)
-                //     {
-                //         if (Items[i].Name != "Good Wine")
-                //         {
-                //             if (Items[i].Name != "Backstage passes for Re:factor"
-                //                 && Items[i].Name != "Backstage passes for HAXX")
-                //             {
-                //                 if (Items[i].Quality > 0)
-                //                 {
-                //                     if (Items[i].Name != "B-DAWG Keychain")
-                //                     {
-                //                         Items[i].Quality = Items[i].Quality - 1;
-                //                     }
-                //                 }
-                //             }
-                //             else
-                //             {
-                //                 Items[i].Quality = Items[i].Quality - Items[i].Quality; //Resets Quality to 0.
-                //             }
-                //         }
-                //         else
-                //         {
-                //             if (Items[i].Quality < 50)
-                //             {
-                //                 Items[i].Quality = Items[i].Quality + 1; //Improved Good Wine quality
-                //             }
-                //         }
-                //     }
             }
         }
 
-        private Item HandleNormalItem(Item item)
+        private void HandleNormalItem(Item item)
+        {
+            ChangeQualityOfItemByAmount(item, IsPastSellByDate(item) ? -2 : -1);
+            DecreaseSellInBy1(item);
+        }
+
+        private void HandleSmellyItem(Item item)
+        {
+            ChangeQualityOfItemByAmount(item, IsPastSellByDate(item) ? -4 : -2);
+            DecreaseSellInBy1(item);
+        }
+
+        private void HandleWineItem(Item item)
+        {
+            ChangeQualityOfItemByAmount(item, IsPastSellByDate(item) ? 2 : 1);
+            DecreaseSellInBy1(item);
+        }
+
+        private void HandleBackstagePassItem(Item item)
         {
             if (IsPastSellByDate(item))
             {
-                item = ChangeQualityOfItemByAmount(item, -2);
+                ResetQuality(item);
+                DecreaseSellInBy1(item);
             }
             else
             {
-                item = ChangeQualityOfItemByAmount(item, -1);
+                ChangeQualityOfItemByAmount(item, item.SellIn <= 5 ? 3 : item.SellIn <= 10 ? 2 : 1);
+                DecreaseSellInBy1(item);
             }
-            item = DecreaseSellInBy1(item);
-            return item;
         }
 
-        private Item HandleSmellyItem(Item item)
+        private void HandleLegendaryItem(Item item)
         {
-            throw new NotImplementedException();
+            //Do Nothing, might change in the future.
+            return;
         }
 
-        private Item HandleWineItem(Item item)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Item HandleBackstagePassItem(Item item)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Item HandleLegendaryItem(Item item)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Item ChangeQualityOfItemByAmount(Item item, int amount = 1)
+        //Legendary items do not change quality after a day, so they won't use this function, otherwise we would need to test it.
+        private void ChangeQualityOfItemByAmount(Item item, int amount = 1)
         {
             if (item.Quality < 50)
             {
                 item.Quality += amount;
                 if (item.Quality < 0)
                     item.Quality = 0;
+                if (item.Quality > 50)
+                    item.Quality = 50;
             }
-            return item;
         }
 
-        private Item DecreaseSellInBy1(Item item)
+        private void DecreaseSellInBy1(Item item)
         {
-            if (item.SellIn >= 0)
-            {
-                item.SellIn--;
-            }
-            return item;
+            item.SellIn--;
         }
 
-        private Item ResetQuality(Item item)
+        private void ResetQuality(Item item)
         {
             item.Quality = 0;
-            return item;
         }
 
         private Categorie GetCategoryOfItem(Item item)
